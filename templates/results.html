@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>📊 Resume Ranking Results</h1>
+
+    <div class="card">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Resume Name</th>
+                    <th>Score (%)</th>
+                    <th>Matched Skills</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resume, score, skills in ranked %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ resume }}</td>
+                    <td>{{ score }}%</td>
+                    <td>
+                        {% for skill in skills %}
+                            <span class="skill">{{ skill }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <canvas id="scoreChart" height="100"></canvas>
+
+        <div class="buttons">
+            <a href="/uploads/ranked_results.csv" class="btn">⬇ Download CSV</a>
+            <a href="/" class="btn secondary">🔙 Go Back</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const labels = {{ ranked | map(attribute=0) | list | tojson }};
+    const scores = {{ ranked | map(attribute=1) | list | tojson }};
+
+    const ctx = document.getElementById('scoreChart').getContext('2d');
+
+    // Create gradient color
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "#4f46e5");   // Indigo
+    gradient.addColorStop(1, "#06b6d4");   // Cyan
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Matching Score (%)',
+                data: scores,
+                backgroundColor: gradient,
+                borderRadius: 10,
+                barThickness: 60,
+                hoverBackgroundColor: "#22d3ee"
+            }]
+        },
+        options: {
+            responsive: true,
+            animation: {
+                duration: 1500,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "#ffffff",
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: "#111827",
+                    titleColor: "#ffffff",
+                    bodyColor: "#22d3ee",
+                    borderColor: "#4f46e5",
+                    borderWidth: 1
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: "#ffffff"
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        color: "#ffffff"
+                    },
+                    grid: {
+                        color: "rgba(255,255,255,0.1)"
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

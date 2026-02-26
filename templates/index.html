@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Resume Screening System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 AI Resume Screening & Ranking System</h1>
+    <p class="subtitle">Automated Resume Shortlisting using NLP & Machine Learning</p>
+
+    <div class="card">
+        <form method="POST" enctype="multipart/form-data">
+
+            <label>📄 Job Description</label>
+            <textarea name="job_description" 
+                      placeholder="Paste Job Description here..." 
+                      required></textarea>
+
+            <label>📎 Upload Resumes (PDF only)</label>
+            <input type="file" name="resumes" multiple required>
+
+            <button type="submit">Analyze & Rank Resumes</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

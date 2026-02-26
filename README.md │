@@ -1,0 +1,79 @@
+# 🚀 AI Resume Screening & Ranking System (Full Stack ATS with NLP + ML)
+
+An intelligent AI-powered Applicant Tracking System (ATS) that automates resume shortlisting using Natural Language Processing and Machine Learning techniques.
+
+This system ranks multiple resumes against a job description, highlights matched skills, visualizes candidate scores, and provides recruiter-level analytics through an admin dashboard.
+
+---
+
+## 📌 Project Overview
+
+Recruiters receive hundreds of resumes for a single role. This project simulates a real-world ATS system by:
+
+- Extracting text from PDF resumes
+- Performing NLP-based preprocessing
+- Converting text into TF-IDF feature vectors
+- Computing similarity using Cosine Similarity
+- Ranking candidates automatically
+- Highlighting matched technical skills
+- Visualizing results using interactive charts
+- Securing access through an Admin Login System
+- Exporting ranked results as CSV
+
+---
+
+## 🧠 Technologies Used
+
+### Backend
+- Python
+- Flask
+- Scikit-learn
+- NLTK
+- Pandas
+- NumPy
+- PyPDF2
+- Joblib
+
+### Frontend
+- HTML5
+- CSS3 (Modern UI)
+- Chart.js (Data Visualization)
+
+---
+
+## ✨ Key Features
+
+✅ Admin Authentication System  
+✅ Multiple Resume Upload (PDF)  
+✅ AI-Based Resume Ranking  
+✅ Cosine Similarity Scoring  
+✅ Skill Extraction & Highlighting  
+✅ Interactive Bar Graph Visualization  
+✅ Gradient Animated Charts  
+✅ CSV Export of Ranked Results  
+✅ Professional Dashboard UI  
+
+---
+
+## 📊 System Workflow
+
+1. Admin Login  
+2. Upload Job Description  
+3. Upload Multiple Resumes  
+4. NLP Text Preprocessing  
+5. TF-IDF Vectorization  
+6. Cosine Similarity Calculation  
+7. Resume Ranking  
+8. Skill Matching Detection  
+9. Interactive Chart Visualization  
+10. CSV Report Generation  
+
+---
+
+## 📂 Project Structure
+
+
+👨‍💻 Author
+
+Katta Sujeeth
+Aspiring AI & Machine Learning Engineer
