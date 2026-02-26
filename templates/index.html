@@ -2,29 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI Resume Screening System</title>
+    <title>AI Resume Screening & Ranking System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
-    <h1>🚀 AI Resume Screening & Ranking System</h1>
-    <p class="subtitle">Automated Resume Shortlisting using NLP & Machine Learning</p>
+<div class="hero-wrapper">
 
-    <div class="card">
+    <!-- HEADER -->
+    <div class="hero-header">
+        <h1>🚀 AI Resume Screening & Ranking System</h1>
+        <p>Smart Candidate Shortlisting powered by NLP & Machine Learning</p>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="hero-card">
         <form method="POST" enctype="multipart/form-data">
 
-            <label>📄 Job Description</label>
-            <textarea name="job_description" 
-                      placeholder="Paste Job Description here..." 
-                      required></textarea>
+            <div class="form-group">
+                <label>📄 Job Description</label>
+                <textarea name="job_description"
+                          placeholder="Paste the job description here..."
+                          required></textarea>
+            </div>
 
-            <label>📎 Upload Resumes (PDF only)</label>
-            <input type="file" name="resumes" multiple required>
+            <div class="form-group">
+                <label>📎 Upload Resumes (PDF only)</label>
+                <input type="file" name="resumes" multiple required>
+            </div>
 
-            <button type="submit">Analyze & Rank Resumes</button>
+            <button type="submit" class="hero-btn">
+                Analyze & Rank Candidates
+            </button>
+
         </form>
     </div>
+
 </div>
 
 </body>

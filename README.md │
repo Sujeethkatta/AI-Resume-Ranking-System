@@ -1,5 +1,12 @@
 # 🚀 AI Resume Screening & Ranking System (Full Stack ATS with NLP + ML)
 
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black)
+![Machine Learning](https://img.shields.io/badge/Machine-Learning-green)
+![NLP](https://img.shields.io/badge/NLP-Text%20Processing-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Status](https://img.shields.io/badge/Status-Active-success)
+
 An intelligent AI-powered Applicant Tracking System (ATS) that automates resume shortlisting using Natural Language Processing and Machine Learning techniques.
 
 This system ranks multiple resumes against a job description, highlights matched skills, visualizes candidate scores, and provides recruiter-level analytics through an admin dashboard.
@@ -54,6 +61,14 @@ Recruiters receive hundreds of resumes for a single role. This project simulates
 ✅ Professional Dashboard UI  
 
 ---
+
+## 📸 Project Screenshots
+
+### 🔐 Admin Login Page
+![Login Page](assets/Login.png)
+
+### 📊 Resume Ranking Dashboard
+![Dashboard](assets/Dashboard.png)
 
 ## 📊 System Workflow
 

@@ -2,121 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ranking Results</title>
+    <title>Recruiter Analytics Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<div class="container">
-    <h1>📊 Resume Ranking Results</h1>
+<!-- ===== TOP SECTION ===== -->
+<div class="top-section">
 
-    <div class="card">
+    <div class="dashboard-header">
+        <h1>📊 Recruiter Analytics Dashboard</h1>
+        <p>AI-powered candidate intelligence platform</p>
+    </div>
 
+    <div class="stats-container">
+
+        <div class="stat-card stat-blue">
+            <div class="stat-title">Total Resumes</div>
+            <div class="stat-value">{{ ranked|length }}</div>
+        </div>
+
+        <div class="stat-card stat-purple">
+            <div class="stat-title">Top Score</div>
+            <div class="stat-value">{{ ranked[0][1] }}%</div>
+        </div>
+
+        <div class="stat-card stat-green">
+            <div class="stat-title">Average Score</div>
+            <div class="stat-value">
+                {{ (ranked | map(attribute=1) | sum / ranked|length) | round(2) }}%
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===== TOP CANDIDATE BANNER ===== -->
+<div class="top-banner">
+    🏆 <strong>{{ ranked[0][0] }}</strong> is leading with 
+    <strong>{{ ranked[0][1] }}%</strong> match
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="content-grid">
+
+    <!-- CHART -->
+    <div class="chart-box">
+        <canvas id="scoreChart"></canvas>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-box">
         <table>
             <thead>
                 <tr>
                     <th>Rank</th>
-                    <th>Resume Name</th>
+                    <th>Resume</th>
                     <th>Score (%)</th>
-                    <th>Matched Skills</th>
                 </tr>
             </thead>
             <tbody>
                 {% for resume, score, skills in ranked %}
-                <tr>
+                <tr {% if loop.index == 1 %} class="highlight" {% endif %}>
                     <td>{{ loop.index }}</td>
                     <td>{{ resume }}</td>
                     <td>{{ score }}%</td>
-                    <td>
-                        {% for skill in skills %}
-                            <span class="skill">{{ skill }}</span>
-                        {% endfor %}
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
-        <canvas id="scoreChart" height="100"></canvas>
-
-        <div class="buttons">
-            <a href="/uploads/ranked_results.csv" class="btn">⬇ Download CSV</a>
-            <a href="/" class="btn secondary">🔙 Go Back</a>
-        </div>
-
     </div>
+
 </div>
 
+<!-- ===== BUTTONS ===== -->
+<div class="buttons">
+    <a href="/uploads/ranked_results.csv" class="btn">⬇ Download CSV</a>
+    <a href="/" class="btn secondary">🔙 Back</a>
+</div>
+
+<!-- ===== CHART SCRIPT ===== -->
 <script>
-    const labels = {{ ranked | map(attribute=0) | list | tojson }};
-    const scores = {{ ranked | map(attribute=1) | list | tojson }};
+const labels = {{ ranked | map(attribute=0) | list | tojson }};
+const scores = {{ ranked | map(attribute=1) | list | tojson }};
 
-    const ctx = document.getElementById('scoreChart').getContext('2d');
+const ctx = document.getElementById('scoreChart').getContext('2d');
 
-    // Create gradient color
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, "#4f46e5");   // Indigo
-    gradient.addColorStop(1, "#06b6d4");   // Cyan
+const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+gradient.addColorStop(0, "#ff6a00");
+gradient.addColorStop(0.5, "#ee0979");
+gradient.addColorStop(1, "#00c6ff");
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Matching Score (%)',
-                data: scores,
-                backgroundColor: gradient,
-                borderRadius: 10,
-                barThickness: 60,
-                hoverBackgroundColor: "#22d3ee"
-            }]
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Matching Score (%)',
+            data: scores,
+            backgroundColor: gradient,
+            borderRadius: 12,
+            barThickness: 50
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            duration: 1200,
+            easing: 'easeOutQuart'
         },
-        options: {
-            responsive: true,
-            animation: {
-                duration: 1500,
-                easing: 'easeOutQuart'
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: "#ffffff",
-                        font: {
-                            size: 14
-                        }
-                    }
-                },
-                tooltip: {
-                    backgroundColor: "#111827",
-                    titleColor: "#ffffff",
-                    bodyColor: "#22d3ee",
-                    borderColor: "#4f46e5",
-                    borderWidth: 1
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: "#ffffff"
-                    },
-                    grid: {
-                        display: false
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    ticks: {
-                        color: "#ffffff"
-                    },
-                    grid: {
-                        color: "rgba(255,255,255,0.1)"
-                    }
-                }
+        plugins: {
+            legend: {
+                labels: { color: "#ffffff" }
+            }
+        },
+        scales: {
+            x: { ticks: { color: "#ffffff" }},
+            y: { 
+                beginAtZero: true, 
+                max: 100,
+                ticks: { color: "#ffffff" }
             }
         }
-    });
+    }
+});
 </script>
+
 </body>
 </html>
